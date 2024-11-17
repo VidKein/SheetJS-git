@@ -19,7 +19,7 @@
     <script src="./dist/xlsx.full.min.js"></script>
     <script>
       // URL файла Excel на сервере
-      const FILE_URL = 'https://vidkein.github.io/SheetJS-git/assets/SOD-11.xlsx'; // Укажите путь к файлу
+      const FILE_URL = '/sod11.xlsx'; // Укажите путь к файлу
 
     // Функция преобразования даты в формат Excel
     const dateToExcelNumber = (date) => {
@@ -80,9 +80,10 @@
                                 const colBAddress = XLSX.utils.encode_cell({ r: row, c: 1 }); // Столбец B
                                 const colBCell = sheet[colBAddress];
                                 console.log(colBCell);
-                                output.textContent += `Строка ${row + 1}: ${colBCell ? colBCell.v : 'Пусто'}\n`;
-
-                                rowCount++; // Увеличиваем счетчик строк
+                                if (colBCell !== undefined) {
+                                  output.textContent += `Строка ${row + 1}: ${colBCell ? colBCell.v : 'Пусто'}\n`;
+                                  rowCount++; // Увеличиваем счетчик строк  
+                                }
                             }
                         }
 
