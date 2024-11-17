@@ -20,6 +20,20 @@
     <script>
       // URL файла Excel на сервере
       const FILE_URL = '/SheetJS-git/assets/SOD-11.xlsx'; // Укажите путь к файлу
+      
+      fetch(FILE_URL)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Не удалось загрузить файл: ${response.statusText}`);
+            }
+            return response.arrayBuffer();
+        })
+        .then(data => {
+            console.log('Файл успешно загружен!');
+        })
+        .catch(error => {
+            console.error('Ошибка:', error.message);
+        });
 
     // Функция преобразования даты в формат Excel
     const dateToExcelNumber = (date) => {
