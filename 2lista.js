@@ -1,5 +1,6 @@
 document.getElementById('search-button').addEventListener('click', async () => {
-    const fileUrl = '/SheetJS-git/file/Jobs_kalendar.xlsx'; // Укажите URL-адрес Excel файла
+    const fileUrl = '/file/Jobs_kalendar.xlsx'; // Укажите URL-адрес Excel файла
+    const jsonFileUrl = '/SheetJS-git/json/jobs.json'; // Укажите URL-адрес json файла
     const searchDateInput = document.getElementById('search-date').value;
 
     if (!searchDateInput) {
@@ -19,6 +20,12 @@ document.getElementById('search-button').addEventListener('click', async () => {
 
         const fileData = await response.arrayBuffer();
         const workbook = XLSX.read(fileData, { type: 'array' });
+
+
+        // Загружаем JSON файл
+        const jsonResponse = await fetch(jsonFileUrl);
+        if (!jsonResponse.ok) {throw new Error('Не удалось загрузить JSON файл');}
+        const jsonData = await jsonResponse.json();
 
         const results = [];
 
@@ -60,8 +67,15 @@ document.getElementById('search-button').addEventListener('click', async () => {
                 const columnBData = sheetData
                     .slice(2) // Пропускаем заголовок
                     .filter((row, index) => colData[index] === 1) // Берем только строки, где в найденном столбце "1"
-                    .map(row => row[1]); // Значения столбца B               
-                    results.push(`${sheetName}: ${columnBData.join(',') || 'Нет данных из столбца B'}`);          
+                    .map(row => row[1]); // Значения столбца B
+                    // Получаем данные из JSON только по существующим ключам
+                    const filteredJsonResults = columnBData
+                    .filter(key => jsonData[sheetName][key] !== undefined) // Оставляем только те ключи, которые есть в JSON
+                    .map(key => `${key}: position: ${jsonData[sheetName][key].position}, vycka: ${jsonData[sheetName][key].vycka}, date: ${jsonData[sheetName][key].date}, JTSK: ${jsonData[sheetName][key].systemCoordinates}, positionType: ${jsonData[sheetName][key].positionType}`);
+                    if (filteredJsonResults.length > 0) {
+                        results.push(`${sheetName}:\n` + filteredJsonResults.join('\n'));
+                    }
+      
             } else {
                 results.push(`${sheetName}: В столбце нет значения "1".`);
             }
@@ -69,9 +83,7 @@ document.getElementById('search-button').addEventListener('click', async () => {
 
         // Форматируем вывод и отображаем на странице
         const outputElement = document.getElementById('output'); 
-        outputElement.innerText = results.join('\n');
-        console.log(results);
-        
+        outputElement.innerText = results.join('\n\n\n');      
 
     } catch (error) {
         console.error('Ошибка при обработке файла:', error);
