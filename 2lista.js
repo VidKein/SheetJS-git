@@ -73,7 +73,7 @@ document.getElementById('search-button').addEventListener('click', async () => {
                     .filter(key => jsonData[sheetName][key] !== undefined) // Оставляем только те ключи, которые есть в JSON
                     .map(key => `${key}: position: ${jsonData[sheetName][key].position}, vycka: ${jsonData[sheetName][key].vycka}, date: ${jsonData[sheetName][key].date}, JTSK: ${jsonData[sheetName][key].systemCoordinates}, positionType: ${jsonData[sheetName][key].positionType}`);
                     if (filteredJsonResults.length > 0) {
-                        results.push(`${sheetName}:\n` + filteredJsonResults.join('\n'));
+                        results.push(`${sheetName} (leng ${colData[0]}):\n` + filteredJsonResults.join('\n'));
                     }
       
             } else {
