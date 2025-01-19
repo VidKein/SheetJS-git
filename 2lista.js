@@ -66,6 +66,8 @@ document.getElementById('search-button').addEventListener('click', async () => {
             const hasOne = colData.some(value => value === 1);
             
             console.log(`Количество найденных точек на листе "${sheetName}":`, colData[0]);
+
+            
             if (hasOne) {
                 // Выводим значения из столбца B и C
                 const columnData = sheetData
