@@ -1,10 +1,6 @@
 document.getElementById('search-button').addEventListener('click', async () => {
-    //Git
-    const fileUrl = '/SheetJS-git/file/Jobs_kalendar.xlsx'; // Укажите URL-адрес Excel файла
-    const jsonFileUrl = '/SheetJS-git/json/jobs.json'; // Укажите URL-адрес json файла
-    //PC
-    //const fileUrl = './file/Jobs_kalendar.xlsx'; // Укажите URL-адрес Excel файла
-    //const jsonFileUrl = './json/jobs.json'; // Укажите URL-адрес json файла
+    const fileUrl = './file/Jobs_kalendar.xlsx'; // Укажите URL-адрес Excel файла
+    const jsonFileUrl = './json/jobs.json'; // Укажите URL-адрес json файла
     const searchDateInput = document.getElementById('search-date').value;
     console.log(searchDateInput);
 
