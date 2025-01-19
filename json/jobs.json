@@ -1,6 +1,6 @@
 
 {   
-    "base":{
+    "Base":{
         "trig":{
             "11005":{"position":[741917,1047280], "vycka": 268.3770, "date": "27.10.2024", "systemCoordinates" : "JTSK", "positionType":"pillar-target cross"},
             "11006":{"position":[741911,1047393], "vycka": 269.7558, "date": "27.10.2024", "systemCoordinates" : "JTSK", "positionType":"pillar-target cross"},
